@@ -15,8 +15,10 @@ public class HelloServiceMain {
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
 		try {
 			ServerBootstrap b = new ServerBootstrap();// Netty用于启动NIO服务端的辅助启动类，目的是降低服务端的开发复杂度
-			b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class).option(ChannelOption.SO_BACKLOG, 1024)
-					.childHandler(new HelloServerChannelInitializer());
+			b.group(bossGroup, workerGroup)
+			.channel(NioServerSocketChannel.class)
+			.option(ChannelOption.SO_BACKLOG, 1024)
+			.childHandler(new HelloServerChannelInitializer());
 			// 调用同步阻塞方法sync 等待绑定操作完成，完成后Netty会返回一个ChannelFuture，
 			ChannelFuture future = b.bind(port).sync(); // 绑定端口，同步等待成功
 			
