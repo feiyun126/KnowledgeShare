@@ -21,7 +21,10 @@ public class HelloServiceMain {
 			.childHandler(new HelloServerChannelInitializer());
 			// 调用同步阻塞方法sync 等待绑定操作完成，完成后Netty会返回一个ChannelFuture，
 			ChannelFuture future = b.bind(port).sync(); // 绑定端口，同步等待成功
-			
+			if(future.isSuccess())
+			{
+				System.out.println("service start.....");
+			}
 			// 它的功能类似于JDK 的 java.util.concurrent.Future，主要用于异步操作的通知回调。
 			// 等待服务端链路关闭之后main函数才退出。
 			future.channel().closeFuture().sync();
